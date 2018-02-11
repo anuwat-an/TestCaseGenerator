@@ -39,7 +39,7 @@ public class TestCaseGenerator {
         yValues.add(minY); yValues.add(minY+1); yValues.add((minY+maxY)/2); yValues.add(maxY-1); yValues.add(maxY);
         int midIndex = Math.round(xValues.size()/2) ;
         midX = xValues.get(midIndex);
-        midY = xValues.get(midIndex);
+        midY = yValues.get(midIndex);
         for (double x : xValues) { testCases.put(x + " " + midY, (x + midY) + ""); }
         for (double y : yValues) { testCases.put(midX + " " + y, (midX + y) + ""); }
     }
@@ -48,7 +48,7 @@ public class TestCaseGenerator {
         yValues.add(minY-1); yValues.add(minY); yValues.add(minY+1); yValues.add((minY+maxY)/2); yValues.add(maxY-1); yValues.add(maxY); yValues.add(maxY+1);
         int midIndex = Math.round(xValues.size()/2) ;
         midX = xValues.get(midIndex);
-        midY = xValues.get(midIndex);
+        midY = yValues.get(midIndex);
         for (double x : xValues) { testCases.put(x + " " + midY, (x + midY) + ""); }
         for (double y : yValues) { testCases.put(midX + " " + y, (midX + y) + ""); }
     }
@@ -76,10 +76,13 @@ public class TestCaseGenerator {
 
         PrintWriter inputsWriter = new PrintWriter("inputs.txt", "UTF-8");
         PrintWriter outputsWriter = new PrintWriter("outputs.txt", "UTF-8");
+
         for (String key : testCases.keySet()){
             if (!(outputTemp.contains(testCases.get(key)))){
                 outputTemp.add(testCases.get(key));
+
             }
+
         }
 //        outputTemp = outputTemp.sort(list, new Comparator<Message>() {  help me sort dis m8
 //            @Override
