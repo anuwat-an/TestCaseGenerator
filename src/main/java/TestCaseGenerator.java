@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TestCaseGenerator {
     public static void main(String[] args) throws IOException {
@@ -25,7 +23,7 @@ public class TestCaseGenerator {
         System.out.println("2: robustness");
         System.out.println("3: worst case");
         System.out.println("4: worst case robustness");
-        System.out.print("Select mode : ");
+        System.out.print("Select mode: ");
         int mode = Integer.parseInt(buffer.readLine());
         double midX ;
         double midY ;
@@ -78,10 +76,10 @@ public class TestCaseGenerator {
         PrintWriter outputsWriter = new PrintWriter("outputs.txt", "UTF-8");
 
         for (String key : testCases.keySet()){
-            if (!(outputTemp.contains(testCases.get(key)))){
-                outputTemp.add(testCases.get(key));
+//            if (!(outputTemp.contains(key))){
+                outputTemp.add(key);
 
-            }
+//            }
 
         }
 //        outputTemp = outputTemp.sort(list, new Comparator<Message>() {  help me sort dis m8
@@ -90,7 +88,20 @@ public class TestCaseGenerator {
 //                return o1.getTime() - o2.getTime();
 //            }
 //        });
-        for (String input : testCases.keySet()) {
+        Collections.sort(outputTemp, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                double first = Double.parseDouble(o1.split(" ")[0]);
+                double second = Double.parseDouble(o2.split(" ")[0]);
+                if (first == second) {
+                    first = Double.parseDouble(o1.split(" ")[1]);
+                    second = Double.parseDouble(o2.split(" ")[1]);
+                    return (int) Math.round(first - second);
+                }
+                return (int) Math.round(first - second);
+            }
+        });
+        for (String input : outputTemp) {
             inputsWriter.println(input);
             outputsWriter.println(testCases.get(input));
         }
